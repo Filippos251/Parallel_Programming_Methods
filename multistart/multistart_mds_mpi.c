@@ -52,13 +52,13 @@ int main(int argc, char *argv[]) {
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
-    for (i = 0; i < MAXVARS; i++) { lower[i] = -2.0; upper[i] = +2.0; } [cite: 38]
+    for (i = 0; i < MAXVARS; i++) { lower[i] = -2.0; upper[i] = +2.0; } 
 
     t0 = get_wtime();
 
     // Μοίρασμα των trials στις διεργασίες 
     for (trial = rank; trial < ntrials; trial += size) {
-        srand48(trial); [cite: 16]
+        srand48(trial); 
         for (i = 0; i < nvars; i++)
             startpt[i] = lower[i] + (upper[i]-lower[i])*drand48();
 
@@ -118,4 +118,5 @@ int main(int argc, char *argv[]) {
 
     MPI_Finalize();
     return 0;
+
 }
