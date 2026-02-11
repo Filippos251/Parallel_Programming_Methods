@@ -16,7 +16,7 @@ multistart_mds_openMP: multistart_mds_openMP.c torczon.c
 	$(CC) $(CFLAGS) $(OMP_FLAGS) -o multistart_mds_openMP multistart_mds_openMP.c torczon.c $(LDLIBS)
 	
 multistart_mds_omp_tasks: multistart_mds_omp_tasks.c torczon_openMP_tasks.c
-	$(CC) $(CFLAGS) -o multistart_mds_omp_tasks multistart_mds_omp_tasks.c torczon_openMP_tasks.c $(LDLIBS)
+        $(CC) $(CFLAGS) $(OMP_FLAGS) -o multistart_mds_omp_tasks multistart_mds_omp_tasks.c torczon_openMP_tasks.c $(LDLIBS)
 
 multistart_mds_mpi: multistart_mds_mpi.c torczon.c
 	$(CC_MPI) $(CFLAGS) -o multistart_mds_mpi multistart_mds_mpi.c torczon.c $(LDLIBS)
