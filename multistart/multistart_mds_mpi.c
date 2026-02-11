@@ -75,13 +75,13 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    // Εύρεση του παγκόσμιου ελάχιστου (Global Reduction) 
+    // Εύρεση του παγκόσμιου ελάχιστου (Χρήση Allreduce για να μάθουν όλοι τον νικητή)
     struct { double val; int rank; } local_res, global_res;
     local_res.val = best_fx;
     local_res.rank = rank;
 
-    // Η MPI_MINLOC βρίσκει την ελάχιστη τιμή και ποιο rank την έχει 
-    MPI_Reduce(&local_res, &global_res, 1, MPI_DOUBLE_INT, MPI_MINLOC, 0, MPI_COMM_WORLD);
+    // Με την Allreduce, όλοι οι ranks λαμβάνουν το αποτέλεσμα της global_res. Η MPI_MINLOC βρίσκει την ελάχιστη τιμή και ποιο rank την έχει
+    MPI_Allreduce(&local_res, &global_res, 1, MPI_DOUBLE_INT, MPI_MINLOC, MPI_COMM_WORLD);
 
     // Συνολικός αριθμός funevals από όλες τις διεργασίες
     unsigned long total_funevals = 0;
@@ -116,7 +116,10 @@ int main(int argc, char *argv[]) {
         }
     }
 
+
+        
     MPI_Finalize();
     return 0;
 
 }
+
