@@ -75,6 +75,9 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    MPI_Barrier(MPI_COMM_WORLD); 
+    t1 = get_wtime();
+
     // Εύρεση του παγκόσμιου ελάχιστου (Χρήση Allreduce για να μάθουν όλοι τον νικητή)
     struct { double val; int rank; } local_res, global_res;
     local_res.val = best_fx;
@@ -87,7 +90,7 @@ int main(int argc, char *argv[]) {
     unsigned long total_funevals = 0;
     MPI_Reduce(&funevals, &total_funevals, 1, MPI_UNSIGNED_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
 
-    t1 = get_wtime();
+
 
     if (rank == 0) {
         // Ο rank 0 λαμβάνει το καλύτερο σημείο από τη διεργασία που το βρήκε
@@ -122,4 +125,5 @@ int main(int argc, char *argv[]) {
     return 0;
 
 }
+
 
